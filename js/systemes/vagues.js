@@ -1,3 +1,4 @@
+import { t } from "../langue.js";
 import { MONDE, ISO, VAGUES } from "../reglages/config.js";
 import { BESTIAIRE, BOSS } from "../reglages/bestiaire.js";
 import { tiragePondere } from "../fonctions.js";
@@ -49,7 +50,7 @@ function lancerVague(scene) {
     vague.aFaireApparaitre = vague.aFaireApparaitre.slice(0, Math.ceil(vague.aFaireApparaitre.length * 0.6));
     scene.time.delayedCall(1500, () => reveillerBoss(scene));
   } else {
-    annoncer(scene, "Vague " + vague.numero, "Les ombres s'élèvent…");
+    annoncer(scene, t("Vague ", "Wave ") + vague.numero, t("Les ombres s'élèvent…", "The shadows rise…"));
     jouerSon("vague");
   }
 
@@ -130,7 +131,7 @@ function reveillerBoss(scene) {
   flashLumineux(scene, x, y - 60, 0x7a3dff, 500);
   scene.cameras.main.shake(700, 0.008);
   jouerSon("boss");
-  annoncer(scene, BOSS.nom.toUpperCase(), "Le roi déchu s'éveille sur son trône…");
+  annoncer(scene, BOSS.nom.toUpperCase(), t("Le roi déchu s'éveille sur son trône…", "The fallen king awakens on his throne…"));
   scene.time.delayedCall(600, () => {
     if (!scene.partieTerminee) {
       scene.bossActif = creerEnnemi(scene, "boss", x, y);

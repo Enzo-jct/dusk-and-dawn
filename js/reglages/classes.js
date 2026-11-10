@@ -1,7 +1,8 @@
+import { t } from "../langue.js";
 export const CLASSES = {
   chevalier: {
-    nom: "Chevalier",
-    description: "Frappe au corps à corps en arc de cercle. Robuste.",
+    nom: t("Chevalier", "Knight"),
+    description: t("Frappe au corps à corps en arc de cercle. Robuste.", "Strikes in a melee arc. Sturdy."),
     texture: "chevalier",
     regardeAGauche: true,
     origineY: 0.94,
@@ -17,7 +18,7 @@ export const CLASSES = {
   },
   mage: {
     nom: "Mage",
-    description: "Lance des flammes sur l'ombre la plus proche. Fragile.",
+    description: t("Lance des flammes sur l'ombre la plus proche. Fragile.", "Casts flames at the nearest shadow. Fragile."),
     texture: "mage",
     regardeAGauche: true,
     origineY: 0.65,

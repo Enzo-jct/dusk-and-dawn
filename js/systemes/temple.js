@@ -1,3 +1,4 @@
+import { t } from "../langue.js";
 import { MONDE, ISO, TEMPLE, TENEBRES, PROFONDEUR } from "../reglages/config.js";
 import { jouerEffet, flashLumineux } from "./effets.js";
 import { annoncer } from "./hud.js";
@@ -121,7 +122,7 @@ function detruireTemple(scene) {
   scene.cameras.main.shake(500, 0.012);
   scene.cameras.main.flash(400, 90, 40, 160);
   jouerSon("temple_detruit");
-  annoncer(scene, "LE TEMPLE EST TOMBÉ", "Plus de réapparition : tenez 2 vagues pour qu'il renaisse");
+  annoncer(scene, t("LE TEMPLE EST TOMBÉ", "THE TEMPLE HAS FALLEN"), t("Plus de réapparition : tenez 2 vagues pour qu'il renaisse", "No more respawns: survive 2 waves for it to return"));
 }
 
 export function reconstruireTemple(scene) {
@@ -142,7 +143,7 @@ export function reconstruireTemple(scene) {
   flashLumineux(scene, temple.x, temple.y - 20, 0xffd27a, 900);
   scene.cameras.main.flash(500, 255, 220, 150);
   jouerSon("reanimation");
-  annoncer(scene, "L'AUBE RENAÎT", "Le temple est reconstruit : les gardiens tombés reviennent");
+  annoncer(scene, t("L'AUBE RENAÎT", "DAWN RETURNS"), t("Le temple est reconstruit : les gardiens tombés reviennent", "The temple is rebuilt: fallen guardians return"));
 
   for (const joueur of scene.joueurs) {
     if (joueur.estMort) {

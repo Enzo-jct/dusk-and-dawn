@@ -1,6 +1,7 @@
+import { t } from "../langue.js";
 export const BESTIAIRE = {
   rampant: {
-    nom: "Ombre rampante",
+    nom: t("Ombre rampante", "Creeping shadow"),
     texture: "rampant",
     rayonCorps: 11,
     pv: 20,
@@ -17,7 +18,7 @@ export const BESTIAIRE = {
     poids: 10
   },
   demon: {
-    nom: "Démon d'ombre",
+    nom: t("Démon d'ombre", "Shadow demon"),
     texture: "demon",
     rayonCorps: 10,
     pv: 16,
@@ -33,7 +34,7 @@ export const BESTIAIRE = {
     poids: 6
   },
   spectre: {
-    nom: "Spectre",
+    nom: t("Spectre", "Specter"),
     texture: "spectre",
     rayonCorps: 12,
     pv: 26,
@@ -51,7 +52,7 @@ export const BESTIAIRE = {
     poids: 4
   },
   colosse: {
-    nom: "Colosse d'ombre",
+    nom: t("Colosse d'ombre", "Shadow colossus"),
     texture: "colosse",
     echelle: 1.8,
     rayonCorps: 10,
@@ -70,7 +71,7 @@ export const BESTIAIRE = {
 };
 
 export const BOSS = {
-  nom: "Roi de l'Ombre",
+  nom: t("Roi de l'Ombre", "Shadow King"),
   texture: "boss",
   echelle: 2.8,
   rayonCorps: 10,

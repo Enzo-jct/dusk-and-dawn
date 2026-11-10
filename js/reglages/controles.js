@@ -1,21 +1,31 @@
-export const TOUCHES_BORNE = {
-  1: { haut: "UP", bas: "DOWN", gauche: "LEFT", droite: "RIGHT", A: "I", B: "O", C: "P", D: "K", E: "L", F: "M" },
-  2: { haut: "Z", bas: "S", gauche: "Q", droite: "D", A: "R", B: "T", C: "Y", D: "F", E: "G", F: "H" }
+export const TOUCHES_CLAVIER = {
+  1: { haut: ["UP"], bas: ["DOWN"], gauche: ["LEFT"], droite: ["RIGHT"], A: ["ENTER"], B: ["ESC"] },
+  2: { haut: ["Z", "W"], bas: ["S"], gauche: ["Q", "A"], droite: ["D"], A: ["SPACE"], B: ["SHIFT"] }
 };
 
-export function creerControles(scene, numeroJoueur) {
-  const touches = scene.input.keyboard.addKeys(TOUCHES_BORNE[numeroJoueur]);
-  for (const nom in touches) {
-    const touche = touches[nom];
-    touche.appuiEnAttente = false;
-    touche.removeAllListeners("down");
-    touche.on("down", (cle, evenement) => {
-      if (!evenement.repeat) {
-        touche.appuiEnAttente = true;
+export function creerControles(scene, numeroJoueur, seul) {
+  const plan = TOUCHES_CLAVIER[numeroJoueur];
+  const controles = {};
+  for (const nom in plan) {
+    const cles = seul ? plan[nom].concat(TOUCHES_CLAVIER[2][nom]) : plan[nom];
+    const touches = cles.map((cle) => scene.input.keyboard.addKey(cle));
+    const bouton = {
+      appuiEnAttente: false,
+      get isDown() {
+        return touches.some((touche) => touche.isDown);
       }
-    });
+    };
+    for (const touche of touches) {
+      touche.removeAllListeners("down");
+      touche.on("down", (cle, evenement) => {
+        if (!evenement.repeat) {
+          bouton.appuiEnAttente = true;
+        }
+      });
+    }
+    controles[nom] = bouton;
   }
-  return touches;
+  return controles;
 }
 
 export function vientDEtrePressee(touche) {

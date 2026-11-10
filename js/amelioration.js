@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 import { CATEGORIES } from "./reglages/bienfaits.js";
 import { creerControles, vientDEtrePressee } from "./reglages/controles.js";
@@ -23,15 +24,15 @@ export default class amelioration extends Phaser.Scene {
     this.add.rectangle(0, 0, ECRAN.largeur, ECRAN.hauteur, 0x05030c, 0.84).setOrigin(0);
     this.add.image(centre, 90, "img_lumiere").setTint(0xffc94a).setBlendMode(Phaser.BlendModes.ADD).setDisplaySize(700, 180).setAlpha(0.35);
     this.add
-      .text(centre, 80, "La flamme vous offre un bienfait", {
+      .text(centre, 80, t("La flamme vous offre un bienfait", "The flame grants you a blessing"), {
         fontFamily: POLICE_TITRE, fontSize: "40px", color: "#ffe2a8", stroke: "#000000", strokeThickness: 6
       })
       .setOrigin(0.5);
     this.add
-      .text(centre, 124, "Niveau " + this.jeu.niveau, { fontFamily: POLICE_TITRE, fontSize: "20px", color: "#d8cfbd" })
+      .text(centre, 124, t("Niveau ", "Level ") + this.jeu.niveau, { fontFamily: POLICE_TITRE, fontSize: "20px", color: "#d8cfbd" })
       .setOrigin(0.5);
     this.add
-      .text(centre, ECRAN.hauteur - 30, "Joystick haut / bas : choisir    ·    Bouton A : valider", {
+      .text(centre, ECRAN.hauteur - 30, t("Haut / bas : choisir    ·    Entrée ou Espace : valider", "Up / down: choose    ·    Enter or Space: confirm"), {
         fontFamily: POLICE_TEXTE, fontSize: "18px", color: "#b9b1a0"
       })
       .setOrigin(0.5);
@@ -43,13 +44,13 @@ export default class amelioration extends Phaser.Scene {
       const choix = {
         joueur: joueur,
         propositions: tirerBienfaits(joueur, NB_CHOIX),
-        controles: creerControles(this, joueur.numero),
+        controles: creerControles(this, joueur.numero, joueurs.length === 1),
         curseur: 0,
         valide: false
       };
       if (joueurs.length > 1) {
         this.add
-          .text(centreZone, 172, "J" + joueur.numero + " · " + joueur.classe.nom, {
+          .text(centreZone, 172, t("J", "P") + joueur.numero + " · " + joueur.classe.nom, {
             fontFamily: POLICE_TITRE, fontSize: "24px", color: joueur.numero === 1 ? "#ff8f7a" : "#ffcf7a"
           })
           .setOrigin(0.5);
@@ -76,7 +77,7 @@ export default class amelioration extends Phaser.Scene {
       fontFamily: POLICE_TITRE, fontSize: "23px", color: "#ffffff"
     });
     const niveau = this.add
-      .text(largeur / 2 - 14, -hauteur / 2 + 11, proposition.niveauActuel === 0 ? "NOUVEAU" : "Niv. " + proposition.niveauActuel + " → " + (proposition.niveauActuel + 1), {
+      .text(largeur / 2 - 14, -hauteur / 2 + 11, proposition.niveauActuel === 0 ? t("NOUVEAU", "NEW") : t("Niv. ", "Lv. ") + proposition.niveauActuel + " → " + (proposition.niveauActuel + 1), {
         fontFamily: POLICE_TEXTE, fontSize: "15px", color: "#ffd27a"
       })
       .setOrigin(1, 0);

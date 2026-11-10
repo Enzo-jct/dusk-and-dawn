@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { rendreNet, creerAnimations } from "./systemes/textures.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 
@@ -23,7 +24,7 @@ export default class chargement extends Phaser.Scene {
     this.load.setBaseURL(baseURL);
 
     const barre = this.add.rectangle(ECRAN.largeur / 2 - 200, ECRAN.hauteur / 2, 0, 6, 0xffc94a).setOrigin(0, 0.5);
-    this.add.text(ECRAN.largeur / 2, ECRAN.hauteur / 2 - 30, "L'aube se prépare…", { fontFamily: POLICE_TEXTE, fontSize: "22px", color: "#f3e9d2" }).setOrigin(0.5);
+    this.add.text(ECRAN.largeur / 2, ECRAN.hauteur / 2 - 30, t("L'aube se prépare…", "Dawn is coming…"), { fontFamily: POLICE_TEXTE, fontSize: "22px", color: "#f3e9d2" }).setOrigin(0.5);
     this.load.on("progress", (valeur) => barre.setSize(400 * valeur, 6));
 
     const dossierPolices = (baseURL ? baseURL + "/" : "") + "assets/polices/";

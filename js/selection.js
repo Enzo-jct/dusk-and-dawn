@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 import { CLASSES } from "./reglages/classes.js";
 import { creerControles, vientDEtrePressee } from "./reglages/controles.js";
@@ -19,10 +20,10 @@ export default class selection extends Phaser.Scene {
     this.add.tileSprite(0, 0, ECRAN.largeur, ECRAN.hauteur, "sol_iso").setOrigin(0);
     this.add.image(cx, ECRAN.hauteur / 2, "img_vignette").setDisplaySize(1800, 1150);
     this.add
-      .text(cx, 60, "Choisissez votre gardien", { fontFamily: POLICE_TITRE, fontSize: "46px", color: "#ffe2a8", stroke: "#000000", strokeThickness: 7 })
+      .text(cx, 60, t("Choisissez votre gardien", "Choose your guardian"), { fontFamily: POLICE_TITRE, fontSize: "46px", color: "#ffe2a8", stroke: "#000000", strokeThickness: 7 })
       .setOrigin(0.5);
     this.add
-      .text(cx, ECRAN.hauteur - 30, "Joystick gauche / droite : changer    ·    Bouton A : valider    ·    Bouton B : retour", {
+      .text(cx, ECRAN.hauteur - 30, t("Gauche / droite : changer    ·    Entrée ou Espace : valider    ·    Échap ou Maj : retour", "Left / right: change    ·    Enter or Space: confirm    ·    Esc or Shift: back"), {
         fontFamily: POLICE_TEXTE, fontSize: "18px", color: "#d8cfbd"
       })
       .setOrigin(0.5);
@@ -32,10 +33,10 @@ export default class selection extends Phaser.Scene {
     this.choix = [];
     for (let numero = 1; numero <= this.nbJoueurs; numero++) {
       const centre = largeurZone * (numero - 1) + largeurZone / 2;
-      const choix = { numero: numero, controles: creerControles(this, numero), curseur: numero - 1, valide: false };
+      const choix = { numero: numero, controles: creerControles(this, numero, this.nbJoueurs === 1), curseur: numero - 1, valide: false };
       choix.cartes = LISTE_CLASSES.map((idClasse, i) => this.creerCarte(centre + (i - 0.5) * 290, 360, idClasse, numero));
       this.add
-        .text(centre, 128, "J" + numero, { fontFamily: POLICE_TITRE, fontSize: "30px", color: numero === 1 ? "#ff8f7a" : "#ffcf7a", stroke: "#000000", strokeThickness: 5 })
+        .text(centre, 128, t("J", "P") + numero, { fontFamily: POLICE_TITRE, fontSize: "30px", color: numero === 1 ? "#ff8f7a" : "#ffcf7a", stroke: "#000000", strokeThickness: 5 })
         .setOrigin(0.5);
       choix.pret = this.add
         .text(centre, 610, "", { fontFamily: POLICE_TITRE, fontSize: "30px", color: "#9dff9d", stroke: "#000000", strokeThickness: 5 })
@@ -58,7 +59,7 @@ export default class selection extends Phaser.Scene {
       .text(0, 8, classe.description, { fontFamily: POLICE_TEXTE, fontSize: "16px", color: "#d8cfbd", align: "center", wordWrap: { width: 240 } })
       .setOrigin(0.5, 0);
     carte.add([cadre, perso, nom, description]);
-    const libelles = { vie: "Vie", portee: "Portée", vitesse: "Vitesse" };
+    const libelles = { vie: t("Vie", "Health"), portee: t("Portée", "Range"), vitesse: t("Vitesse", "Speed") };
     Object.keys(libelles).forEach((cleNote, i) => {
       const ligneY = 92 + i * 26;
       carte.add(this.add.text(-110, ligneY, libelles[cleNote], { fontFamily: POLICE_TEXTE, fontSize: "15px", color: "#b9ae98" }).setOrigin(0, 0.5));
@@ -82,7 +83,7 @@ export default class selection extends Phaser.Scene {
         }
         if (vientDEtrePressee(touches.A)) {
           choix.valide = true;
-          choix.pret.setText("PRÊT !");
+          choix.pret.setText(t("PRÊT !", "READY!"));
           this.afficherCurseur(choix);
           jouerSon("choix");
         }

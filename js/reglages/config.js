@@ -1,3 +1,4 @@
+import { t } from "../langue.js";
 export const ECRAN = { largeur: 1280, hauteur: 720 };
 
 export const MONDE = { largeur: 2048, hauteur: 1152 };
@@ -65,10 +66,10 @@ export const VAGUES = {
 };
 
 export const RARETES = [
-  { id: "commun", nom: "Commun", poids: 60, multiplicateur: 1, couleur: 0xc9c3b6 },
+  { id: "commun", nom: t("Commun", "Common"), poids: 60, multiplicateur: 1, couleur: 0xc9c3b6 },
   { id: "rare", nom: "Rare", poids: 26, multiplicateur: 1.5, couleur: 0x4d9dff },
-  { id: "epique", nom: "Épique", poids: 10, multiplicateur: 2, couleur: 0xb15cff },
-  { id: "heroique", nom: "Héroïque", poids: 4, multiplicateur: 2.5, couleur: 0xff5c3d }
+  { id: "epique", nom: t("Épique", "Epic"), poids: 10, multiplicateur: 2, couleur: 0xb15cff },
+  { id: "heroique", nom: t("Héroïque", "Heroic"), poids: 4, multiplicateur: 2.5, couleur: 0xff5c3d }
 ];
 
 export const SONS = { actifs: true, volume: 0.35, volumeMusique: 0.45 };

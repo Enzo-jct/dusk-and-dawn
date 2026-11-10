@@ -1,3 +1,4 @@
+import { t } from "../langue.js";
 import { ECRAN, PROFONDEUR, POLICE_TITRE, POLICE_TEXTE, BARRES } from "../reglages/config.js";
 import { BIENFAITS, CATEGORIES } from "../reglages/bienfaits.js";
 import { formaterTemps } from "../fonctions.js";
@@ -17,7 +18,7 @@ export function creerHud(scene) {
   );
   const templeCadre = fixer(scene.add.image(templeX, 0, "temple_cadre").setOrigin(0));
   const sousTemple = templeCadre.height;
-  hud.templeTitre = fixer(scene.add.text(centre, sousTemple, "TEMPLE DE L'AUBE", TITRE).setOrigin(0.5, 0));
+  hud.templeTitre = fixer(scene.add.text(centre, sousTemple, t("TEMPLE DE L'AUBE", "TEMPLE OF DAWN"), TITRE).setOrigin(0.5, 0));
   hud.infos = fixer(scene.add.text(centre, sousTemple + 24, "", { ...TEXTE, fontSize: "16px" }).setOrigin(0.5, 0));
   hud.texteTemple = "";
   hud.texteInfos = "";
@@ -31,7 +32,7 @@ export function creerHud(scene) {
     fixer(scene.add.image(x, 6, cle + "_cadre").setOrigin(0));
     panneau.nom = fixer(
       scene.add
-        .text(panneau.bord, 80, "J" + joueur.numero + " · " + joueur.classe.nom.toUpperCase(), { ...TITRE, fontSize: "17px" })
+        .text(panneau.bord, 80, t("J", "P") + joueur.numero + " · " + joueur.classe.nom.toUpperCase(), { ...TITRE, fontSize: "17px" })
         .setOrigin(aGauche ? 0 : 1, 0)
     );
     panneau.etat = fixer(
@@ -55,7 +56,7 @@ export function creerHud(scene) {
   );
   hud.bossCadre = fixer(scene.add.image(bossX, bossY, "boss_cadre").setOrigin(0));
   hud.bossNom = fixer(
-    scene.add.text(centre, bossY - 4, "ROI DE L'OMBRE", { ...TITRE, color: "#d8b4ff" }).setOrigin(0.5, 1)
+    scene.add.text(centre, bossY - 4, t("ROI DE L'OMBRE", "SHADOW KING"), { ...TITRE, color: "#d8b4ff" }).setOrigin(0.5, 1)
   );
   afficherBarreBoss(hud, false);
 
@@ -94,13 +95,13 @@ export function mettreAJourHud(scene) {
   hud.templeRemplissage.setTint(attaque && Math.floor(scene.tempsJeu / 100) % 2 === 0 ? 0xff6060 : 0xffffff);
   hud.templeRemplissage.setVisible(!temple.detruit);
 
-  let texteTemple = "TEMPLE DE L'AUBE";
+  let texteTemple = t("TEMPLE DE L'AUBE", "TEMPLE OF DAWN");
   if (temple.detruit) {
     const restantes = Math.max(0, temple.vagueReconstruction - scene.vague.numero - 1);
     texteTemple =
       restantes > 0
-        ? "TEMPLE DÉTRUIT · renaît dans " + restantes + " vague" + (restantes > 1 ? "s" : "")
-        : "TEMPLE DÉTRUIT · renaît à la fin de cette vague";
+        ? t("TEMPLE DÉTRUIT · renaît dans ", "TEMPLE DESTROYED · returns in ") + restantes + t(" vague", " wave") + (restantes > 1 ? "s" : "")
+        : t("TEMPLE DÉTRUIT · renaît à la fin de cette vague", "TEMPLE DESTROYED · returns at the end of this wave");
   }
   if (texteTemple !== hud.texteTemple) {
     hud.texteTemple = texteTemple;
@@ -114,9 +115,9 @@ export function mettreAJourHud(scene) {
     let texte = "";
     if (joueur.estMort) {
       if (temple.detruit) {
-        texte = "Tombé · en attente de l'aube";
+        texte = t("Tombé · en attente de l'aube", "Fallen · waiting for dawn");
       } else {
-        texte = "Tombé · retour dans " + Math.max(0, Math.ceil((joueur.reanimationA - scene.tempsJeu) / 1000)) + " s";
+        texte = t("Tombé · retour dans ", "Fallen · back in ") + Math.max(0, Math.ceil((joueur.reanimationA - scene.tempsJeu) / 1000)) + " s";
       }
     }
     if (texte !== panneau.texteEtat) {
@@ -127,13 +128,13 @@ export function mettreAJourHud(scene) {
   });
 
   remplir(hud.xpRemplissage, scene.xp / scene.xpRequise, false);
-  const texteNiveau = "NIVEAU " + scene.niveau;
+  const texteNiveau = t("NIVEAU ", "LEVEL ") + scene.niveau;
   if (texteNiveau !== hud.texteNiveau) {
     hud.texteNiveau = texteNiveau;
     hud.niveau.setText(texteNiveau);
   }
 
-  const texteInfos = "Vague " + scene.vague.numero + "   ·   " + formaterTemps(scene.tempsJeu) + "   ·   Score " + scene.score;
+  const texteInfos = t("Vague ", "Wave ") + scene.vague.numero + "   ·   " + formaterTemps(scene.tempsJeu) + "   ·   Score " + scene.score;
   if (texteInfos !== hud.texteInfos) {
     hud.texteInfos = texteInfos;
     hud.infos.setText(texteInfos);

@@ -1,3 +1,4 @@
+import { t, changerLangue } from "./langue.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 import { creerControles, boutonPresse } from "./reglages/controles.js";
 import { initialiserSons, jouerMusique, jouerSon } from "./systemes/sons.js";
@@ -17,8 +18,8 @@ export default class menu extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.options = [
-      { texte: "1 JOUEUR", nbJoueurs: 1 },
-      { texte: "2 JOUEURS", nbJoueurs: 2 }
+      { texte: t("1 JOUEUR", "1 PLAYER"), nbJoueurs: 1 },
+      { texte: t("2 JOUEURS", "2 PLAYERS"), nbJoueurs: 2 }
     ];
     this.textesOptions = this.options.map((option, i) =>
       this.add
@@ -29,7 +30,7 @@ export default class menu extends Phaser.Scene {
     this.afficherSelection();
 
     this.add
-      .text(cx, 618, "Joystick : choisir  ·  Bouton A : commencer", { fontFamily: POLICE_TEXTE, fontSize: "15px", color: "#e8dcc0" })
+      .text(cx, 618, t("Haut / bas : choisir  ·  Entrée ou Espace : commencer  ·  L : English", "Up / down: choose  ·  Enter or Space: start  ·  L: Français"), { fontFamily: POLICE_TEXTE, fontSize: "15px", color: "#e8dcc0" })
       .setOrigin(0.5);
     this.add
       .text(cx, ECRAN.hauteur - 12, "Assets : Undead Tileset (CraftPix) · Chevalier (Szadi art) · Mage (GandalfHardcore) · Tiny RPG · Pixel Art Top Down (Cainos) · Catacombs · VFX packs", {
@@ -40,6 +41,7 @@ export default class menu extends Phaser.Scene {
     this.input.keyboard.resetKeys();
     this.controlesJ1 = creerControles(this, 1);
     this.controlesJ2 = creerControles(this, 2);
+    this.input.keyboard.addKey("L").once("down", () => changerLangue());
     initialiserSons(this);
     jouerMusique(this, "musique_menu");
     this.cameras.main.fadeIn(800);

@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { ISO } from "./reglages/config.js";
 
 export function distanceSol(x1, y1, x2, y2) {
@@ -54,7 +55,7 @@ export function trierProfondeur(sprite) {
 
 export function formaterNombre(valeur) {
   const arrondi = Math.round(valeur * 100) / 100;
-  return String(arrondi).replace(".", ",");
+  return t(String(arrondi).replace(".", ","), String(arrondi));
 }
 
 export function formaterTemps(ms) {

@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { creerCarte, creerCamera, mettreAJourCamera } from "./systemes/carte.js";
 import { creerTemple, creerTenebres, mettreAJourTenebres } from "./systemes/temple.js";
 import {
@@ -75,7 +76,7 @@ export default class jeu extends Phaser.Scene {
     this.physics.add.collider(this.groupeCranes, this.groupeObstacles, (crane) => exploserCrane(this, crane));
 
     creerHud(this);
-    annoncer(this, "Protégez le Temple de l'Aube", "Joystick : se déplacer   ·   l'attaque est automatique   ·   B : pause");
+    annoncer(this, t("Protégez le Temple de l'Aube", "Protect the Temple of Dawn"), t("Flèches ou ZQSD : se déplacer   ·   l'attaque est automatique   ·   Échap : pause", "Arrows or WASD: move   ·   attacks are automatic   ·   Esc: pause"));
     demarrerVagues(this);
     initialiserSons(this);
     jouerMusique(this, "musique_jeu");
@@ -130,7 +131,7 @@ export default class jeu extends Phaser.Scene {
   terminerPartie() {
     this.partieTerminee = true;
     this.physics.pause();
-    annoncer(this, "LES OMBRES ONT TRIOMPHÉ", "");
+    annoncer(this, t("LES OMBRES ONT TRIOMPHÉ", "THE SHADOWS HAVE TRIUMPHED"), "");
     this.cameras.main.fadeOut(2600, 0, 0, 0);
     this.cameras.main.once("camerafadeoutcomplete", () => {
       this.scene.start("fin", {

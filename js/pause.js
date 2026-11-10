@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 import { creerControles, boutonPresse } from "./reglages/controles.js";
 
@@ -13,7 +14,7 @@ export default class pause extends Phaser.Scene {
       .text(cx, 340, "PAUSE", { fontFamily: POLICE_TITRE, fontSize: "64px", color: "#ffe2a8", stroke: "#000000", strokeThickness: 7 })
       .setOrigin(0.5);
     this.add
-      .text(cx, 440, "Bouton A : reprendre    ·    Bouton B : menu", { fontFamily: POLICE_TEXTE, fontSize: "24px", color: "#ffffff" })
+      .text(cx, 440, t("Entrée ou Espace : reprendre    ·    Échap ou Maj : menu", "Enter or Space: resume    ·    Esc or Shift: menu"), { fontFamily: POLICE_TEXTE, fontSize: "24px", color: "#ffffff" })
       .setOrigin(0.5);
 
     this.input.keyboard.resetKeys();

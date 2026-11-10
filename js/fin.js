@@ -1,3 +1,4 @@
+import { t } from "./langue.js";
 import { ECRAN, POLICE_TITRE, POLICE_TEXTE } from "./reglages/config.js";
 import { creerControles, boutonPresse } from "./reglages/controles.js";
 import { formaterTemps } from "./fonctions.js";
@@ -21,23 +22,23 @@ export default class fin extends Phaser.Scene {
 
     this.add.image(cx, ECRAN.hauteur / 2, "img_vignette").setDisplaySize(1700, 1100);
     this.add
-      .text(cx, 100, "Les ombres ont triomphé.", {
+      .text(cx, 100, t("Les ombres ont triomphé.", "The shadows have triumphed."), {
         fontFamily: POLICE_TITRE, fontSize: "50px", color: "#ffe2a8", stroke: "#000000", strokeThickness: 7
       })
       .setOrigin(0.5);
     this.add
-      .text(cx, 156, "Relevez-vous, Gardien, l'Aube a encore besoin de vous.", { fontFamily: POLICE_TEXTE, fontSize: "22px", fontStyle: "italic", color: "#b9ae98" })
+      .text(cx, 156, t("Relevez-vous, Gardien, l'Aube a encore besoin de vous.", "Rise, Guardian, the Dawn still needs you."), { fontFamily: POLICE_TEXTE, fontSize: "22px", fontStyle: "italic", color: "#b9ae98" })
       .setOrigin(0.5);
 
     const lignes = [
-      "Temps survécu : " + formaterTemps(bilan.temps),
-      "Vague atteinte : " + bilan.vague,
-      "Niveau : " + bilan.niveau,
-      "Ombres vaincues : " + bilan.ennemisVaincus,
-      "Rois de l'Ombre vaincus : " + bilan.bossVaincus,
-      "Score : " + bilan.score
+      t("Temps survécu : ", "Time survived: ") + formaterTemps(bilan.temps),
+      t("Vague atteinte : ", "Wave reached: ") + bilan.vague,
+      t("Niveau : ", "Level: ") + bilan.niveau,
+      t("Ombres vaincues : ", "Shadows defeated: ") + bilan.ennemisVaincus,
+      t("Rois de l'Ombre vaincus : ", "Shadow Kings defeated: ") + bilan.bossVaincus,
+      t("Score : ", "Score: ") + bilan.score
     ];
-    this.add.text(380, 230, "Votre partie", { fontFamily: POLICE_TITRE, fontSize: "32px", color: "#ffe2a8" }).setOrigin(0.5);
+    this.add.text(380, 230, t("Votre partie", "Your game"), { fontFamily: POLICE_TITRE, fontSize: "32px", color: "#ffe2a8" }).setOrigin(0.5);
     this.add
       .text(380, 410, lignes.join("\n"), {
         fontFamily: POLICE_TEXTE, fontSize: "26px", color: "#f3e9d2", align: "center", lineSpacing: 10
@@ -45,7 +46,7 @@ export default class fin extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.titreScores = this.add
-      .text(900, 230, "Entrez vos initiales", { fontFamily: POLICE_TITRE, fontSize: "32px", color: "#ffe2a8" })
+      .text(900, 230, t("Entrez vos initiales", "Enter your initials"), { fontFamily: POLICE_TITRE, fontSize: "32px", color: "#ffe2a8" })
       .setOrigin(0.5);
     this.lettres = [0, 0, 0];
     this.position = 0;
@@ -57,7 +58,7 @@ export default class fin extends Phaser.Scene {
     this.afficherLettres();
 
     this.aide = this.add
-      .text(cx, ECRAN.hauteur - 60, "Joystick haut / bas : changer la lettre    ·    Bouton A : valider", {
+      .text(cx, ECRAN.hauteur - 60, t("Haut / bas : changer la lettre    ·    Entrée ou Espace : valider", "Up / down: change letter    ·    Enter or Space: confirm"), {
         fontFamily: POLICE_TEXTE, fontSize: "24px", color: "#ffffff"
       })
       .setOrigin(0.5);
@@ -124,14 +125,14 @@ export default class fin extends Phaser.Scene {
     for (const texte of this.textesLettres) {
       texte.destroy();
     }
-    this.titreScores.setText("Meilleurs scores");
+    this.titreScores.setText(t("Meilleurs scores", "High scores"));
     for (let i = 0; i < scores.length; i++) {
       const couleur = scores[i] === nouveau ? "#ffc94a" : "#f3e9d2";
       const style = { fontFamily: POLICE_TEXTE, fontSize: "24px", color: couleur };
       this.add.text(790, 270 + i * 34, (i + 1) + ".  " + scores[i].nom, style);
       this.add.text(1010, 270 + i * 34, scores[i].score, style).setOrigin(1, 0);
     }
-    this.aide.setText("Bouton A : rejouer    ·    Bouton B : menu");
+    this.aide.setText(t("Entrée ou Espace : rejouer    ·    Échap ou Maj : menu", "Enter or Space: play again    ·    Esc or Shift: menu"));
     this.etape = "scores";
   }
 }

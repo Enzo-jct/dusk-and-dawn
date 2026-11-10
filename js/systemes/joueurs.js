@@ -1,3 +1,4 @@
+import { t } from "../langue.js";
 import { JOUEUR, PROFONDEUR, POLICE_TITRE } from "../reglages/config.js";
 import { CLASSES } from "../reglages/classes.js";
 import { creerControles } from "../reglages/controles.js";
@@ -20,7 +21,7 @@ export function creerJoueur(scene, numero, idClasse) {
   joueur.numero = numero;
   joueur.classe = classe;
   joueur.cleTexture = cleTexture;
-  joueur.touches = creerControles(scene, numero);
+  joueur.touches = creerControles(scene, numero, scene.nbJoueurs === 1);
   joueur.stats = {
     pvMax: classe.pvMax,
     vitesse: classe.vitesse,
@@ -44,7 +45,7 @@ export function creerJoueur(scene, numero, idClasse) {
 
   const couleur = numero === 1 ? "#ff8f7a" : "#ffcf7a";
   joueur.etiquette = scene.add
-    .text(joueur.x, joueur.y, "J" + numero, { fontFamily: POLICE_TITRE, fontSize: "13px", color: couleur, stroke: "#000000", strokeThickness: 3 })
+    .text(joueur.x, joueur.y, t("J", "P") + numero, { fontFamily: POLICE_TITRE, fontSize: "13px", color: couleur, stroke: "#000000", strokeThickness: 3 })
     .setOrigin(0.5, 1)
     .setDepth(PROFONDEUR.textes);
   joueur.barreFond = scene.add.rectangle(joueur.x, joueur.y, 34, 5, 0x000000, 0.7).setDepth(PROFONDEUR.textes);
